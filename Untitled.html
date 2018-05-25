@@ -124,28 +124,49 @@ $(document).ready(function () {
 </div>
 
 
-<p>EMAIL: n.c.deschipper</p>
-<p>Question 1 part 1 1.1 population standard error of the mean difference, you can estimate this with SE of student t and SE of welch</p>
-<p>1.2 <span class="math inline">\(\sqrt{\frac{208}{208}}\)</span></p>
-<p>1.3 Input: S: integer deining the number of independent data sets to generate n: the sample size of the data sets <span class="math inline">\(\mu\)</span>, and <span class="math inline">\(\sigma^2\)</span> vlaues fo the population parameters ofthe data generating distribution Output: S estimates o the statistics of interest, namely bias, variance, MSE and RE</p>
-<ol style="list-style-type: decimal">
-<li>initialize out students_bias, students_var, students_mse, welch_bias, welch_var, welch_mse and relative_efficiency all as vector of length S</li>
-<li><p>For s in 1:S: A. Generate data with sample size n1 from N(<span class="math inline">\(\mu\_{1}\)</span> , <span class="math inline">\(\sigma^{2}\_{1}\)</span>) and sample size n2 from N(<span class="math inline">\(\mu\_{2}\)</span> , <span class="math inline">\(\sigma^{2}\_{2}\)</span>) B. Obtain sample variance, bias and mse for both</p></li>
-<li><p><span class="math inline">\(intialize bias\_{student}, variance\_{student}, mse\_{student} , bias\_{welch}, variance\_{welch} , mse\_{welch} all as vector of lentgh S and RE for relative efficency\)</span></p></li>
+<p>Twan J. Kerkhof - 1287753 - <a href="mailto:t.j.kerkhof@tilburguniversity.edu">t.j.kerkhof@tilburguniversity.edu</a></p>
+<div id="part-1" class="section level2">
+<h2>Part 1:</h2>
+</div>
+<div id="section" class="section level2">
+<h2>1:</h2>
+<p>population standard error of the mean difference, you can estimate this with SE of student t and SE of welch.<br />
+##2:<br />
+a.<br />
+First calculate <span class="math inline">\(SE_{Welch}\)</span> using the given formula which yields: <span class="math inline">\(SE_{Welch} = \sqrt{\frac{1}{10}+\frac{1}{200}}=\sqrt{\frac{21}{200}}\)</span>. For the <span class="math inline">\(SE_p\)</span> we first need the pooled standard deviation which we calculate using the given formula which yields: <span class="math inline">\(\sqrt{\frac{208}{208}} = 1\)</span>. We use this together with the given formula for <span class="math inline">\(SE_p\)</span> to find: <span class="math display">\[SE_p = 1*\sqrt{\frac{1}{10}+\frac{1}{200}} = \sqrt{\frac{21}{200}}\]</span>. So <span class="math inline">\(SE_{Welch} = SE_p\)</span> with <span class="math inline">\(0.324\)</span>.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>See below:<br />
+Input:<br />
+-S: integer definin the number of independent data sets to generate in the MC simulation<br />
+-n1 and n2: sample size for dataset 1 and dataset 2 respecitvely.<br />
+-<span class="math inline">\(\mu_1\)</span> and <span class="math inline">\(\mu_2\)</span>: means for dataset 1 and dataset 2 respecitvely.<br />
+-<span class="math inline">\(\sigma^2_1\)</span> and <span class="math inline">\(\sigma^2_2\)</span>: variances for dataset 1 and dataset 2 respectively.<br />
+Output:<br />
+-S estimates of the population standard error of the mean difference for the entered values using SE for Welch t-test and Student t-test.</li>
 </ol>
-<pre class="r"><code>set.seed(200)
+<p>MonteCarlo_SE(S, n1, n2, <span class="math inline">\(\mu_1\)</span>, <span class="math inline">\(\mu_2\)</span>, <span class="math inline">\(\sigma^2_1\)</span>, <span class="math inline">\(\sigma^2_2\)</span> )<br />
+1. Initialize variables SE_student and SE_welch as vectors of length S<br />
+2. For i from 1 to S do:<br />
+A. Generate and store two seperate datasets with their respecitve values from N(<span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma^2\)</span>).<br />
+B. Obtain pooled standard deviation and save as a variable.<br />
+C. Obtain and add results of the Standard Errors for welch and students t-tests to the vectors SE_student and SE_welch.<br />
+3. Obtain bias, variance and MSE from the vectors SE_student and SE_welch and store in variables for output.<br />
+4. Divide the two obtained MSE’s to optain the Relative Efficiency and store in variable for output.<br />
+5. Return two the two biasses, two variances, two MSE’s and the Relative Efficiency.</p>
+<p>Note: the A. B. and C. in the psuedo code above should be indented but due to some problems with markdown I was not able to do this.</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>See code and results below:</li>
+</ol>
+<pre class="r"><code>set.seed(100)
 n1 &lt;- c(10, 100, 200)
 n2 &lt;- 200
 var2 &lt;- c(1, 2 , 10)
 var1 &lt;- 1
 mean1 &lt;- 0
 mean2 &lt;- 1
-S &lt;- 10000
 conditions &lt;- expand.grid(n1, var2)
 
-MonteCarlo_SE &lt;- function(n1, var2) {
-  data_1 &lt;- rnorm(n1, mean1, sqrt(var1))
-  data_2 &lt;- rnorm(n2, mean2, sqrt(var2))
+MonteCarlo_SE &lt;- function(n1, var2, S) {
   SE_student &lt;- rep(NA, S)
   SE_welch &lt;- rep(NA, S)
   for (i in 1:S) {
@@ -163,33 +184,91 @@ MonteCarlo_SE &lt;- function(n1, var2) {
   Out_bias_welch &lt;- bias_Welch
   Out_MSE_student &lt;- (bias_Student)^2 + Out_variance_student
   Out_MSE_welch &lt;- (bias_Welch)^2 + Out_variance_welch
-  RE &lt;- (sum(SE_welch)/sum(SE_student))
-  return(c(Out_variance_student, Out_variance_welch, Out_bias_student, Out_bias_welch, Out_MSE_student, Out_MSE_welch, RE))
+  RE &lt;- ((Out_MSE_student)/(Out_MSE_welch))
+  return(c(Out_variance_student, Out_variance_welch, Out_bias_student, 
+           Out_bias_welch, Out_MSE_student, Out_MSE_welch, RE))
 }
 
 results &lt;- matrix(NA, 7, 9)
 for (i in 1:nrow(conditions)) {
-  results[, i] &lt;- MonteCarlo_SE(n1 = conditions[i, 1], var2 = conditions[i,2])
+  results[, i] &lt;- MonteCarlo_SE(n1 = conditions[i, 1], var2 = conditions[i,2], S = 10000)
 }
 
 out_results &lt;- cbind(conditions, t(round(results, digits = 3)))
-colnames(out_results) &lt;- c(&quot;n1&quot;, &quot;var2&quot;, &quot;Variance_S&quot;, &quot;variance_W&quot;, &quot;Bias_S&quot;, &quot;Bias_W&quot;, &quot;MSE_S&quot;, &quot;MSE_W&quot;, &quot;Relative Efficiency&quot;)
+colnames(out_results) &lt;- c(&quot;n1&quot;, &quot;var2&quot;, &quot;Variance_S&quot;, &quot;variance_W&quot;, &quot;Bias_S&quot;, 
+                           &quot;Bias_W&quot;, &quot;MSE_S&quot;, &quot;MSE_W&quot;, &quot;RE&quot;)
 out_results</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["n1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["var2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Variance_S"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["variance_W"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Bias_S"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Bias_W"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["MSE_S"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["MSE_W"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["Relative Efficiency"],"name":[9],"type":["dbl"],"align":["right"]}],"data":[{"1":"10","2":"1","3":"0.000","4":"0.005","5":"0.000","6":"0.009","7":"0.000","8":"0.005","9":"0.974"},{"1":"100","2":"1","3":"0.000","4":"0.000","5":"0.000","6":"0.000","7":"0.000","8":"0.000","9":"1.000"},{"1":"200","2":"1","3":"0.000","4":"0.000","5":"0.000","6":"0.000","7":"0.000","8":"0.000","9":"1.000"},{"1":"10","2":"2","3":"0.000","4":"0.005","5":"-0.121","6":"0.008","7":"0.015","8":"0.005","9":"0.716"},{"1":"100","2":"2","3":"0.000","4":"0.000","5":"-0.017","6":"0.000","7":"0.000","8":"0.000","9":"0.895"},{"1":"200","2":"2","3":"0.000","4":"0.000","5":"0.000","6":"0.000","7":"0.000","8":"0.000","9":"1.000"},{"1":"10","2":"10","3":"0.003","4":"0.003","5":"-0.616","6":"0.005","7":"0.382","8":"0.004","9":"0.381"},{"1":"100","2":"10","3":"0.000","4":"0.000","5":"-0.079","6":"0.000","7":"0.006","8":"0.000","9":"0.755"},{"1":"200","2":"10","3":"0.000","4":"0.000","5":"0.000","6":"0.000","7":"0.000","8":"0.000","9":"1.000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["n1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["var2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Variance_S"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["variance_W"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Bias_S"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Bias_W"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["MSE_S"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["MSE_W"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["RE"],"name":[9],"type":["dbl"],"align":["right"]}],"data":[{"1":"10","2":"1","3":"0.000","4":"0.005","5":"0.001","6":"0.008","7":"0.000","8":"0.005","9":"0.050"},{"1":"100","2":"1","3":"0.000","4":"0.000","5":"0.000","6":"0.000","7":"0.000","8":"0.000","9":"0.659"},{"1":"200","2":"1","3":"0.000","4":"0.000","5":"0.000","6":"0.000","7":"0.000","8":"0.000","9":"1.000"},{"1":"10","2":"2","3":"0.000","4":"0.005","5":"-0.121","6":"0.008","7":"0.015","8":"0.005","9":"3.008"},{"1":"100","2":"2","3":"0.000","4":"0.000","5":"-0.016","6":"0.000","7":"0.000","8":"0.000","9":"8.444"},{"1":"200","2":"2","3":"0.000","4":"0.000","5":"0.000","6":"0.000","7":"0.000","8":"0.000","9":"1.000"},{"1":"10","2":"10","3":"0.003","4":"0.003","5":"-0.617","6":"0.005","7":"0.383","8":"0.003","9":"110.086"},{"1":"100","2":"10","3":"0.000","4":"0.000","5":"-0.079","6":"0.000","7":"0.006","8":"0.000","9":"58.636"},{"1":"200","2":"10","3":"0.000","4":"0.000","5":"0.000","6":"0.000","7":"0.000","8":"0.000","9":"1.000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>1.2 Use t-test r-function to obtain p value Null hypothesis: The means of the two t-tests are the same Alternative Hypothesis: The means of the two t-tests are not the same</p>
-<p>2.1 Null hypothesis: The means of the two t-tests are the same Alternative Hypothesis: The means of the two t-tests are not the same</p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>The assumption violated in the majority of the conditions is the assumption that both variances are equal.</li>
+</ol>
+<p>3<br />
+- With small sample sizes and unequal variances the student t-test is more biased than the welch t-test.<br />
+With small sample sizes and an equal variances Welch t-test will be more biased.<br />
+With large sample sizes compared to the variance the difference in bias between Welch and Student-tests.<br />
+- The results show that when the differences in variances between dataset 1 and dataset 2 are larger, with dataset 2 having a higher variance, the variance increases in both tests.<br />
+- The relative efficiency shows that Welch t-test is more efficient when the sample size is low and the variances are unequal. Student t-test is more efficient when samples siezes are low and variances are equal.</p>
+<p>Question 2:<br />
+2.1<br />
+Null hypothesis: The means of the two t-tests are the same Alternative Hypothesis: The means of the two t-tests are not the same</p>
 <p>2.2</p>
-<pre class="r"><code>n1 &lt;- c(10, 100, 200)
+<pre class="r"><code>set.seed(100)
+S &lt;- 10000
+n1 &lt;- c(10, 100, 200)
 n2 &lt;- 200
 var1 &lt;- 2
 var2 &lt;- c(1, 2, 10)
 mean1 &lt;- 0
-mean2 &lt;- 1
-conditions &lt;- expand.grid(n1, var2)</code></pre>
+mean2 &lt;- 0
+conditions &lt;- expand.grid(n1, var2)
+
+MonteCarlo_ST &lt;- function(n1, var2) {
+  p_values_welch &lt;- rep(0, S)
+  p_values_student &lt;- rep(0, S)
+  for (i in 1:S) {
+    data_1 &lt;- rnorm(n1, mean1, sqrt(var1))
+    data_2 &lt;- rnorm(n2, mean2, sqrt(var2))
+    res_welch &lt;- t.test(data_1, data_2, var.equal = TRUE)
+    res_student &lt;- t.test(data_1, data_2, var.equal = FALSE)
+    if (res_welch$p.value &lt;= 0.05) {
+      p_values_welch[i] &lt;- 1
+    }
+    if (res_student$p.value &lt;= 0.05) {
+      p_values_student[i] &lt;- 1
+    }
+  }
+  return(c(sum(p_values_student)/S, sum(p_values_welch)/S))
+}
+
+
+results &lt;- matrix(NA, 2, 9)
+for (i in 1:nrow(conditions)) {
+  results[, i] &lt;- MonteCarlo_ST(n1 = conditions[i, 1], var2 = conditions[i,2])
+}
+out_results &lt;- cbind(conditions, t(round(results, digits = 3)))
+colnames(out_results) &lt;- c(&quot;n1&quot;, &quot;var2&quot;, &quot;Student&quot;, &quot;Welch&quot;)
+out_results</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["n1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["var2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Student"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Welch"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"10","2":"1","3":"0.051","4":"0.148"},{"1":"100","2":"1","3":"0.052","4":"0.081"},{"1":"200","2":"1","3":"0.051","4":"0.051"},{"1":"10","2":"2","3":"0.052","4":"0.051"},{"1":"100","2":"2","3":"0.052","4":"0.052"},{"1":"200","2":"2","3":"0.051","4":"0.051"},{"1":"10","2":"10","3":"0.058","4":"0.000"},{"1":"100","2":"10","3":"0.053","4":"0.016"},{"1":"200","2":"10","3":"0.049","4":"0.050"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>The fact that the variances of the two populations should be the same. ##3 1. - Sample size: low; variances: unequal; student t-test (more) biased - Sample size: low; variances: equal; welch test (more) biased - Sample size: large (with regard to the variance); no difference between welch and student.</p>
+<ol start="2" style="list-style-type: decimal">
+<li></li>
+</ol>
+<ul>
+<li>Larger sample sizes decrease the variances.</li>
+<li>Larger difference in variances (larger var2), increases the variance in both tests</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Student t-test when sample size is low and variances the same, welch test when the sample size is low and the variances are unequal. When the sample size is large (<span class="math inline">\(n_1 \geq 200\)</span>) there is no difference.</li>
+</ol>
+</div>
 
 
 
