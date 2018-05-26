@@ -124,7 +124,8 @@ $(document).ready(function () {
 </div>
 
 
-<p>Twan J. Kerkhof - 1287753 - <a href="mailto:t.j.kerkhof@tilburguniversity.edu">t.j.kerkhof@tilburguniversity.edu</a></p>
+<p>Twan J. Kerkhof - 1287753 - <a href="mailto:t.j.kerkhof@tilburguniversity.edu">t.j.kerkhof@tilburguniversity.edu</a><br />
+* Apologies for the terrible layout but I have been struggling with markdown for several hours and I am not able to fix it in a reasonable amount of time *</p>
 <div id="part-1" class="section level2">
 <h2>Part 1:</h2>
 </div>
@@ -154,10 +155,17 @@ C. Obtain and add results of the Standard Errors for welch and students t-tests 
 4. Divide the two obtained MSE’s to optain the Relative Efficiency and store in variable for output.<br />
 5. Return two the two biasses, two variances, two MSE’s and the Relative Efficiency.</p>
 <p>Note: the A. B. and C. in the psuedo code above should be indented but due to some problems with markdown I was not able to do this.</p>
+<p>Input:<br />
+-S: integer defining the number of independent data sets to generate in the MC simulation<br />
+-n1 and n2: sample size for dataset 1 and dataset 2 respecitvely.<br />
+-<span class="math inline">\(\mu_1\)</span> and <span class="math inline">\(\mu_2\)</span>: means for dataset 1 and dataset 2 respecitvely.<br />
+-<span class="math inline">\(\sigma^2_1\)</span> and <span class="math inline">\(\sigma^2_2\)</span>: variances for dataset 1 and dataset 2 respectively.<br />
+Output:<br />
+- Estimates obtained by montecarlo simulation for the significance level and the power for both students t-test and welch t-test.</p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>See code and results below:</li>
 </ol>
-<pre class="r"><code>set.seed(100)
+<pre class="r"><code>set.seed(1000)
 n1 &lt;- c(10, 100, 200)
 n2 &lt;- 200
 var2 &lt;- c(1, 2 , 10)
@@ -200,7 +208,7 @@ colnames(out_results) &lt;- c(&quot;n1&quot;, &quot;var2&quot;, &quot;Variance_S
 out_results</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["n1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["var2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Variance_S"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["variance_W"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Bias_S"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Bias_W"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["MSE_S"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["MSE_W"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["RE"],"name":[9],"type":["dbl"],"align":["right"]}],"data":[{"1":"10","2":"1","3":"0.000","4":"0.005","5":"0.001","6":"0.008","7":"0.000","8":"0.005","9":"0.050"},{"1":"100","2":"1","3":"0.000","4":"0.000","5":"0.000","6":"0.000","7":"0.000","8":"0.000","9":"0.659"},{"1":"200","2":"1","3":"0.000","4":"0.000","5":"0.000","6":"0.000","7":"0.000","8":"0.000","9":"1.000"},{"1":"10","2":"2","3":"0.000","4":"0.005","5":"-0.121","6":"0.008","7":"0.015","8":"0.005","9":"3.008"},{"1":"100","2":"2","3":"0.000","4":"0.000","5":"-0.016","6":"0.000","7":"0.000","8":"0.000","9":"8.444"},{"1":"200","2":"2","3":"0.000","4":"0.000","5":"0.000","6":"0.000","7":"0.000","8":"0.000","9":"1.000"},{"1":"10","2":"10","3":"0.003","4":"0.003","5":"-0.617","6":"0.005","7":"0.383","8":"0.003","9":"110.086"},{"1":"100","2":"10","3":"0.000","4":"0.000","5":"-0.079","6":"0.000","7":"0.006","8":"0.000","9":"58.636"},{"1":"200","2":"10","3":"0.000","4":"0.000","5":"0.000","6":"0.000","7":"0.000","8":"0.000","9":"1.000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["n1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["var2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Variance_S"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["variance_W"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Bias_S"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Bias_W"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["MSE_S"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["MSE_W"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["RE"],"name":[9],"type":["dbl"],"align":["right"]}],"data":[{"1":"10","2":"1","3":"0.000","4":"0.005","5":"0.000","6":"0.006","7":"0.000","8":"0.005","9":"0.049"},{"1":"100","2":"1","3":"0.000","4":"0.000","5":"0.000","6":"0.000","7":"0.000","8":"0.000","9":"0.659"},{"1":"200","2":"1","3":"0.000","4":"0.000","5":"0.000","6":"0.000","7":"0.000","8":"0.000","9":"1.000"},{"1":"10","2":"2","3":"0.000","4":"0.005","5":"-0.121","6":"0.009","7":"0.015","8":"0.005","9":"3.218"},{"1":"100","2":"2","3":"0.000","4":"0.000","5":"-0.017","6":"0.000","7":"0.000","8":"0.000","9":"8.639"},{"1":"200","2":"2","3":"0.000","4":"0.000","5":"0.000","6":"0.000","7":"0.000","8":"0.000","9":"1.000"},{"1":"10","2":"10","3":"0.002","4":"0.003","5":"-0.617","6":"0.004","7":"0.383","8":"0.004","9":"108.810"},{"1":"100","2":"10","3":"0.000","4":"0.000","5":"-0.079","6":"0.000","7":"0.006","8":"0.000","9":"57.766"},{"1":"200","2":"10","3":"0.000","4":"0.000","5":"0.000","6":"0.000","7":"0.000","8":"0.000","9":"1.000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <ol start="4" style="list-style-type: lower-alpha">
@@ -215,59 +223,72 @@ With large sample sizes compared to the variance the difference in bias between 
 <p>Question 2:<br />
 2.1<br />
 Null hypothesis: The means of the two t-tests are the same Alternative Hypothesis: The means of the two t-tests are not the same</p>
-<p>2.2</p>
-<pre class="r"><code>set.seed(100)
+<p>2.2<br />
+MonteCarlo_ST(S, n1, n2, <span class="math inline">\(\mu_1\)</span>, <span class="math inline">\(\mu_2\)</span>, <span class="math inline">\(\sigma^2_1\)</span>, <span class="math inline">\(\sigma^2_2\)</span> )<br />
+1. intialize variables p_values_student, p_values_welch, TP_student and TP_welchs<br />
+2. For i from 1 to S do:<br />
+A. Generate and store three datasets, 2 with the their respective values N(<span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma^2\)</span>) as data1 and data2 and a data set with the all values equal to the second dataset but with <span class="math inline">\(\mu_1\)</span> and store as data3<br />
+B. Obtain the amount P values below the provided significance level for the welch and student t-tests on data1 and data2 and store them in their respective variables p_values_welch and p_values_student<br />
+C. Obtain the amount of p values below the provided significance level for the welch and student t-tests on data3 and store them in their respective variables TP_student and TP_welch<br />
+3. Devide all devide the values stored in the variables p_values_student, p_values_welch, TP_student and TP_welch all by S<br />
+4. Return p_values_student, p_values_welch, TP_student and TP_welchs</p>
+<p>2.3</p>
+<pre class="r"><code>set.seed(10000)
 S &lt;- 10000
 n1 &lt;- c(10, 100, 200)
 n2 &lt;- 200
-var1 &lt;- 2
+var1 &lt;- 1
 var2 &lt;- c(1, 2, 10)
 mean1 &lt;- 0
-mean2 &lt;- 0
+mean2 &lt;- 1
 conditions &lt;- expand.grid(n1, var2)
 
 MonteCarlo_ST &lt;- function(n1, var2) {
   p_values_welch &lt;- rep(0, S)
   p_values_student &lt;- rep(0, S)
+  FN_student &lt;- rep(0, S)
+  FN_welch &lt;- rep(0, S)
   for (i in 1:S) {
     data_1 &lt;- rnorm(n1, mean1, sqrt(var1))
     data_2 &lt;- rnorm(n2, mean2, sqrt(var2))
-    res_welch &lt;- t.test(data_1, data_2, var.equal = TRUE)
-    res_student &lt;- t.test(data_1, data_2, var.equal = FALSE)
+    data_3 &lt;- rnorm(n2, mean1, sqrt(var2))
+    res_welch &lt;- t.test(data_1, data_3, var.equal = TRUE)
+    res_student &lt;- t.test(data_1, data_3, var.equal = FALSE)
+    pwr_calc_welch &lt;- t.test(data_1, data_2, var.equal = TRUE)
+    pwr_calc_student &lt;- t.test(data_1, data_2, var.equal = FALSE)
     if (res_welch$p.value &lt;= 0.05) {
       p_values_welch[i] &lt;- 1
     }
     if (res_student$p.value &lt;= 0.05) {
       p_values_student[i] &lt;- 1
     }
+    if (pwr_calc_welch$p.value &lt;= 0.05) {
+      FN_welch[i] &lt;- 1
+    }
+    if (pwr_calc_student$p.value &lt;= 0.05) {
+      FN_student[i] &lt;- 1
+    }
   }
-  return(c(sum(p_values_student)/S, sum(p_values_welch)/S))
+  return(c(sum(p_values_student)/S, sum(p_values_welch)/S, sum(FN_student)/S, sum(FN_welch)/S))
 }
 
-
-results &lt;- matrix(NA, 2, 9)
+results &lt;- matrix(NA, 4, 9)
 for (i in 1:nrow(conditions)) {
   results[, i] &lt;- MonteCarlo_ST(n1 = conditions[i, 1], var2 = conditions[i,2])
 }
-out_results &lt;- cbind(conditions, t(round(results, digits = 3)))
-colnames(out_results) &lt;- c(&quot;n1&quot;, &quot;var2&quot;, &quot;Student&quot;, &quot;Welch&quot;)
+out_results &lt;- cbind(conditions, t(round(results, digits = 4)))
+colnames(out_results) &lt;- c(&quot;n1&quot;, &quot;var2&quot;, &quot;Student&quot;, &quot;Welch&quot;, &quot;Power Student&quot;, &quot;Power Welch&quot;)
 out_results</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["n1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["var2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Student"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Welch"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"10","2":"1","3":"0.051","4":"0.148"},{"1":"100","2":"1","3":"0.052","4":"0.081"},{"1":"200","2":"1","3":"0.051","4":"0.051"},{"1":"10","2":"2","3":"0.052","4":"0.051"},{"1":"100","2":"2","3":"0.052","4":"0.052"},{"1":"200","2":"2","3":"0.051","4":"0.051"},{"1":"10","2":"10","3":"0.058","4":"0.000"},{"1":"100","2":"10","3":"0.053","4":"0.016"},{"1":"200","2":"10","3":"0.049","4":"0.050"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["n1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["var2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Student"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Welch"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Power Student"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Power Welch"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"10","2":"1","3":"0.0489","4":"0.0462","5":"0.7960","6":"0.8673"},{"1":"100","2":"1","3":"0.0502","4":"0.0502","5":"1.0000","6":"1.0000"},{"1":"200","2":"1","3":"0.0543","4":"0.0543","5":"1.0000","6":"1.0000"},{"1":"10","2":"2","3":"0.0505","4":"0.0080","5":"0.7865","6":"0.6404"},{"1":"100","2":"2","3":"0.0527","4":"0.0296","5":"1.0000","6":"1.0000"},{"1":"200","2":"2","3":"0.0534","4":"0.0535","5":"1.0000","6":"1.0000"},{"1":"10","2":"10","3":"0.0513","4":"0.0000","5":"0.6923","6":"0.0071"},{"1":"100","2":"10","3":"0.0516","4":"0.0107","5":"0.9827","6":"0.9261"},{"1":"200","2":"10","3":"0.0468","4":"0.0470","5":"0.9898","6":"0.9899"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>The fact that the variances of the two populations should be the same. ##3 1. - Sample size: low; variances: unequal; student t-test (more) biased - Sample size: low; variances: equal; welch test (more) biased - Sample size: large (with regard to the variance); no difference between welch and student.</p>
-<ol start="2" style="list-style-type: decimal">
-<li></li>
-</ol>
-<ul>
-<li>Larger sample sizes decrease the variances.</li>
-<li>Larger difference in variances (larger var2), increases the variance in both tests</li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
-<li>Student t-test when sample size is low and variances the same, welch test when the sample size is low and the variances are unequal. When the sample size is large (<span class="math inline">\(n_1 \geq 200\)</span>) there is no difference.</li>
-</ol>
+<p>2.4<br />
+- The method better in achieving the given 0.05 level of significance are for student t-test the cases with n1 = 100 and var2 = 2 and also in the cases with a large difference in variance (var2 = 10) and n1 = 100 or 10 and the case of n1 = 10 and var2 = 2. For the Welch t-test the cases with low sample size are very bad and the cases with high variance are bad. The best performance is achieved for Welch with a sample size n1 of 100 and equal variances of 1.<br />
+- The most powerful method is the student t-test with higher power overall. A higher variance seems to cause an increase in the power (increase in percentage correctly rejected null hyptothesis) with small sample sizes the power is always bad.</p>
+<p>Part 1 and 2:<br />
+I support this practice as my results and what I have found in documentation and research is that the welch t-test pefroms better in a wider range of cases compared to the student t-test. The Welch t-test only shows bad performance with small sample sizes.</p>
 </div>
 
 
