@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.24)  25 MAY 2018 22:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.24)  27 MAY 2018 17:36
 entering extended mode
 **./Untitled.tex
 (Untitled.tex
@@ -1042,32 +1042,32 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 g"
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 198.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 194.
 
 ("C:\Users\Twan\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\t1lmtt.fd"
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 199.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 195.
 [1
 
 {C:/Users/Twan/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2] [3]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 372.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 394.
 [4]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 372.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 394.
 (Untitled.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 372.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 372.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 394.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 394.
 Package rerunfilecheck Info: File `Untitled.out' has not changed.
-(rerunfilecheck)             Checksum: 392BE6BD9C4B2BFDF628221D4C092CC7;138.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 372.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 394.
  ) 
 Here is how much of TeX's memory you used:
- 12764 strings out of 493305
- 187760 string characters out of 3130237
- 291874 words of memory out of 3000000
- 16100 multiletter control sequences out of 15000+200000
- 30641 words of font info for 53 fonts, out of 3000000 for 9000
+ 12742 strings out of 493305
+ 187514 string characters out of 3130237
+ 291814 words of memory out of 3000000
+ 16090 multiletter control sequences out of 15000+200000
+ 24296 words of font info for 47 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  32i,5n,38p,481b,374s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc
@@ -1076,19 +1076,18 @@ enc}{C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm.e
 nc}{C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathe
 x.enc}{C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ma
 thit.enc}<C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm
-/lmbx12.pfb><C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public
-/lm/lmex10.pfb><C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
-lic/lm/lmmi10.pfb><C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
-public/lm/lmmi7.pfb><C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts/type
-1/public/lm/lmr10.pfb><C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
-pe1/public/lm/lmr17.pfb><C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts/
-type1/public/lm/lmr7.pfb><C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts
-/type1/public/lm/lmsy10.pfb><C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fo
-nts/type1/public/lm/lmtk10.pfb><C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9
-/fonts/type1/public/lm/lmtt10.pfb>
-Output written on Untitled.pdf (4 pages, 188774 bytes).
+/lmex10.pfb><C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public
+/lm/lmmi10.pfb><C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
+lic/lm/lmmi7.pfb><C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
+ublic/lm/lmr10.pfb><C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
+/public/lm/lmr17.pfb><C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
+e1/public/lm/lmr7.pfb><C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
+pe1/public/lm/lmsy10.pfb><C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fonts
+/type1/public/lm/lmtk10.pfb><C:/Users/Twan/AppData/Local/Programs/MiKTeX 2.9/fo
+nts/type1/public/lm/lmtt10.pfb>
+Output written on Untitled.pdf (4 pages, 167536 bytes).
 PDF statistics:
- 85 PDF objects out of 1000 (max. 8388607)
- 10 named destinations out of 1000 (max. 500000)
- 6161 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 72 PDF objects out of 1000 (max. 8388607)
+ 8 named destinations out of 1000 (max. 500000)
+ 4097 words of extra memory for PDF output out of 10000 (max. 10000000)
 

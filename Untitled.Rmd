@@ -1,21 +1,19 @@
 ---
-title: "Exercise 2"
+title: "Exercise 1"
 output:
+  pdf_document: default
+  html_notebook: default
   html_document:
     df_print: paged
-  html_notebook: default
-  pdf_document: default
   word_document: default
 ---
 
 Twan J. Kerkhof - 1287753 - t.j.kerkhof@tilburguniversity.edu  
 * Apologies for the terrible layout but I have been struggling with markdown for several hours and I am not able to fix it in a reasonable amount of time *
 
-##Part 1:  
-##1:  
-population standard error of the mean difference, you can estimate this with SE of student t and SE of welch.  
-##2:  
-a.  
+Part 1:  
+1:  
+population standard error of the mean difference, you can estimate this with SE of student t and SE of welch:  
       First calculate $SE_{Welch}$ using the given formula which yields: $SE_{Welch} = \sqrt{\frac{1}{10}+\frac{1}{200}}=\sqrt{\frac{21}{200}}$.
       For the $SE_p$ we first need the pooled standard deviation which we calculate using the given formula which yields: $\sqrt{\frac{208}{208}} = 1$.
       We use this together with the given formula for $SE_p$ to find:  $$SE_p = 1*\sqrt{\frac{1}{10}+\frac{1}{200}} = \sqrt{\frac{21}{200}}$$.
@@ -40,15 +38,7 @@ MonteCarlo_SE(S, n1, n2, $\mu_1$, $\mu_2$, $\sigma^2_1$, $\sigma^2_2$ )
 4. Divide the two obtained MSE's to optain the Relative Efficiency and store in variable for output.  
 5. Return two the two biasses, two variances, two MSE's and the Relative Efficiency.  
 
-Note: the A. B. and C. in the psuedo code above should be indented but due to some problems with markdown I was not able to do this.
-
-Input:  
-  -S: integer defining the number of independent data sets to generate in the MC simulation  
-  -n1 and n2: sample size for dataset 1 and dataset 2 respecitvely.  
-  -$\mu_1$ and $\mu_2$: means for dataset 1 and dataset 2 respecitvely.  
-  -$\sigma^2_1$ and $\sigma^2_2$: variances for dataset 1 and dataset 2 respectively.  
-Output:  
-  - Estimates obtained by montecarlo simulation for the significance level and the power for both students t-test and welch t-test.    
+Note: the A. B. and C. in the psuedo code above should be indented but due to some problems with markdown I was not able to do this.  
   
 c. See code and results below:
 ```{r}
@@ -86,12 +76,13 @@ MonteCarlo_SE <- function(n1, var2, S) {
 
 results <- matrix(NA, 7, 9)
 for (i in 1:nrow(conditions)) {
-  results[, i] <- MonteCarlo_SE(n1 = conditions[i, 1], var2 = conditions[i,2], S = 10000)
+  results[, i] <- MonteCarlo_SE(n1 = conditions[i, 1], 
+                                var2 = conditions[i,2], S = 10000)
 }
 
 out_results <- cbind(conditions, t(round(results, digits = 3)))
-colnames(out_results) <- c("n1", "var2", "Variance_S", "variance_W", "Bias_S", 
-                           "Bias_W", "MSE_S", "MSE_W", "RE")
+colnames(out_results) <- c("n1", "var2", "Variance_S", "variance_W", 
+                           "Bias_S", "Bias_W", "MSE_S", "MSE_W", "RE")
 out_results
 
 
@@ -122,7 +113,8 @@ MonteCarlo_ST(S, n1, n2, $\mu_1$, $\mu_2$, $\sigma^2_1$, $\sigma^2_2$ )
     C. Obtain the amount of p values below the provided significance level for the welch and student t-tests on data3 and store them in their respective variables TP_student and TP_welch  
   3. Devide all devide the values stored in the variables p_values_student, p_values_welch, TP_student and TP_welch all by S  
   4. Return p_values_student, p_values_welch, TP_student and TP_welchs  
-
+  
+Note: the A. B. and C. in the psuedo code above should be indented but due to some problems with markdown I was not able to do this.  
 
 
 
@@ -141,16 +133,16 @@ conditions <- expand.grid(n1, var2)
 MonteCarlo_ST <- function(n1, var2) {
   p_values_welch <- rep(0, S)
   p_values_student <- rep(0, S)
-  FN_student <- rep(0, S)
-  FN_welch <- rep(0, S)
+  TP_student <- rep(0, S)
+  TP_welch <- rep(0, S)
   for (i in 1:S) {
     data_1 <- rnorm(n1, mean1, sqrt(var1))
     data_2 <- rnorm(n2, mean2, sqrt(var2))
     data_3 <- rnorm(n2, mean1, sqrt(var2))
-    res_welch <- t.test(data_1, data_3, var.equal = TRUE)
-    res_student <- t.test(data_1, data_3, var.equal = FALSE)
-    pwr_calc_welch <- t.test(data_1, data_2, var.equal = TRUE)
-    pwr_calc_student <- t.test(data_1, data_2, var.equal = FALSE)
+    res_welch <- t.test(data_1, data_3, var.equal = FALSE)
+    res_student <- t.test(data_1, data_3, var.equal = TRUE)
+    pwr_calc_welch <- t.test(data_1, data_2, var.equal = FALSE)
+    pwr_calc_student <- t.test(data_1, data_2, var.equal = TRUE)
     if (res_welch$p.value <= 0.05) {
       p_values_welch[i] <- 1
     }
@@ -158,26 +150,29 @@ MonteCarlo_ST <- function(n1, var2) {
       p_values_student[i] <- 1
     }
     if (pwr_calc_welch$p.value <= 0.05) {
-      FN_welch[i] <- 1
+      TP_welch[i] <- 1
     }
     if (pwr_calc_student$p.value <= 0.05) {
-      FN_student[i] <- 1
+      TP_student[i] <- 1
     }
   }
-  return(c(sum(p_values_student)/S, sum(p_values_welch)/S, sum(FN_student)/S, sum(FN_welch)/S))
+  return(c(sum(p_values_student)/S, sum(p_values_welch)/S, 
+           sum(TP_student)/S, sum(TP_welch)/S))
 }
 
 results <- matrix(NA, 4, 9)
 for (i in 1:nrow(conditions)) {
-  results[, i] <- MonteCarlo_ST(n1 = conditions[i, 1], var2 = conditions[i,2])
+  results[, i] <- MonteCarlo_ST(n1 = conditions[i, 1], 
+                                var2 = conditions[i,2])
 }
 out_results <- cbind(conditions, t(round(results, digits = 4)))
-colnames(out_results) <- c("n1", "var2", "Student", "Welch", "Power Student", "Power Welch")
+colnames(out_results) <- c("n1", "var2", "Level Student", "Level Welch", 
+                           "Power Student", "Power Welch")
 out_results
 ```
 2.4  
-- The method better in achieving the given 0.05 level of significance are for student t-test the cases with n1 = 100 and var2 = 2 and also in the cases with a large difference in variance (var2 = 10) and n1 = 100 or 10 and the case of n1 = 10 and var2 = 2. For the Welch t-test the cases with low sample size are very bad and the cases with high variance are bad. The best performance is achieved for Welch with a sample size n1 of 100 and equal variances of 1.  
-- The most powerful method is the student t-test with higher power overall. A higher variance seems to cause an increase in the power (increase in percentage correctly rejected null hyptothesis) with small sample sizes the power is always bad.  
+- The method more consistently performing close to the provided significance level of 0.05 is the Welch t-test. It gets closes with n1 = 100 and n2 = 200 and equal variances for both datasets with variance being 1.
+- There is not a clear winner considering power. it is very clear however that the power is greater with with the larger sample sizes (100 and 200) with power = 1 for both methods for all combinations values of variance except 10.
   
 Part 1 and 2:  
-I support this practice as my results and what I have found in documentation and research is that the welch t-test pefroms better in a wider range of cases compared to the student t-test. The Welch t-test only shows bad performance with small sample sizes.  
+I support this practice as my results and what I have found in documentation and research is that the welch t-test pefroms better in a wider range of cases compared to the student t-test. The Welch t-test only shows bad performance with small sample sizes. It will yield a better result in most of the cases. But comparing these two methods and others when performing comparissons of means is always important and worth thinking about.
